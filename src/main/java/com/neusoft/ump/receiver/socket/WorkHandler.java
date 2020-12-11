@@ -1,9 +1,9 @@
-package com.neusoft.ump.recever.socket;
+package com.neusoft.ump.receiver.socket;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.neusoft.ump.recever.queue.UmpQueue;
+import com.neusoft.ump.receiver.queue.UmpQueue;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

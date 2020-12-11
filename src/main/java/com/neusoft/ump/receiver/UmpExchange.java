@@ -1,4 +1,4 @@
-package com.neusoft.ump.receiver.handler;
+package com.neusoft.ump.receiver;
 
 import com.neusoft.ump.receiver.queue.UmpQueue;
 

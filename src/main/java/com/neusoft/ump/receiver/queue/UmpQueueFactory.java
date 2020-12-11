@@ -1,4 +1,4 @@
-package com.neusoft.ump.recever.queue;
+package com.neusoft.ump.receiver.queue;
 
 public abstract class UmpQueueFactory {
 

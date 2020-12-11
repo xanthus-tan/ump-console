@@ -1,4 +1,4 @@
-package com.neusoft.ump.recever.queue;
+package com.neusoft.ump.receiver.queue;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
