@@ -2,7 +2,6 @@ package com.neusoft.ump.receiver.socket;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.neusoft.ump.receiver.Receiver;
-import com.neusoft.ump.receiver.SingleThreadReceiver;
 import com.neusoft.ump.receiver.UmpExchange;
 import com.neusoft.ump.receiver.queue.UmpBlockingQueueFactory;
 import com.neusoft.ump.receiver.queue.UmpQueue;
@@ -52,7 +51,6 @@ public class ConsoleSocketServer {
 
         Runnable receverThread = () -> {
             UmpExchange<ObjectNode> exchange = new UmpExchange(queue);
-            //Receiver receiver = SingleThreadReceiver.getInstance();
             exchange.setReceiver(receiver);
             exchange.exec();
         };

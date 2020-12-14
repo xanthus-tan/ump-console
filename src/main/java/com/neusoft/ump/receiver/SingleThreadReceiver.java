@@ -13,9 +13,7 @@ import org.springframework.stereotype.Component;
 
 @Component("singleThreadReceiver")
 public class SingleThreadReceiver extends Receiver{
-    private volatile static Receiver receiver;
     private final Log log = LogFactory.getLog(getClass());
-//    private SingleThreadReceiver(){}
 
     @Autowired
     @Qualifier("agentParserServiceImp")

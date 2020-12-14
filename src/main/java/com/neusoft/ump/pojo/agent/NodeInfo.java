@@ -1,13 +1,22 @@
 package com.neusoft.ump.pojo.agent;
 
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+
 import java.util.Date;
 
+@Component("nodeInfo")
 public class NodeInfo {
     private String nodeHostname;
     private String nodeArch;
     private String nodeOS;
     private String nodeName;
     private String nodeIp;
+    private String nodeSCN;
+    private String nodeCpuNumber;
+    private String nodeMemorySize;
+    private String nodeDiskSize;
+    private Date nodeRegisteredTime;
 
     public String getNodeHostname() {
         return nodeHostname;
@@ -88,12 +97,6 @@ public class NodeInfo {
     public void setNodeRegisteredTime(Date nodeRegisteredTime) {
         this.nodeRegisteredTime = nodeRegisteredTime;
     }
-
-    private String nodeSCN;
-    private String nodeCpuNumber;
-    private String nodeMemorySize;
-    private String nodeDiskSize;
-    private Date nodeRegisteredTime;
 
 
 }
