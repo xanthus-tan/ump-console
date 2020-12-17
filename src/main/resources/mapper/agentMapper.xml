@@ -2,11 +2,13 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.neusoft.ump.pojo.agent.NodeInfo">
-    <insert id="addNode">
+<mapper namespace="com.neusoft.ump.dao.agent.NodeDAO">
+    <insert id="addNode" parameterType="com.neusoft.ump.pojo.agent.NodeInfo">
         insert into ump.ump_node (ump_node_hostname,ump_node_arch,ump_node_os,ump_node_name,ump_node_ip,
-        ump_node_current_scn,ump_node_cpu_number,ump_node_memory_size,ump_node_disk_size,ump_node_registered_time
+        ump_node_current_scn,ump_node_cpu_number,ump_node_memory_size,ump_node_disk_size,ump_node_registered_time)
         values(#{nodeHostname},#{nodeArch},#{nodeOS},#{nodeName},#{nodeIp},#{nodeSCN},#{nodeCpuNumber},
-        #{nodeMemorySize},#{nodeDiskSize},now())
+        #{nodeMemorySize},#{nodeDiskSize},#{nodeRegisteredTime})
     </insert>
 </mapper>
+
+

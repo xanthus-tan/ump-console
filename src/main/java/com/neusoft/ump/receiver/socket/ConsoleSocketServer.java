@@ -10,6 +10,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -23,9 +24,11 @@ public class ConsoleSocketServer {
     private final Log log = LogFactory.getLog(getClass());
     private static final Integer PORT = 5388;
     private UmpQueue<ObjectNode> queue;
+
     @Autowired
     @Qualifier("singleThreadReceiver")
     private Receiver receiver;
+
     public ConsoleSocketServer() {
         UmpQueueFactory factory = new UmpBlockingQueueFactory();
         this.queue = factory.createInstance("default");

@@ -1,15 +1,27 @@
 package com.neusoft.ump.pojo.agent;
 
+import org.springframework.stereotype.Repository;
+
 import java.util.Date;
 
+@Repository("nodeMetricsDisk")
 public class NodeMetricsDisk {
     private String metricsDiskSCN;
     private String metricsDiskFstype;
-    private Integer metricsDiskTotal;
-    private Integer metricsDiskUsed;
-    private Integer metricsDiskUsedPercent;
-    private Date metricsDiskCollectTime;
+    private Long metricsDiskTotal;
+    private Long metricsDiskUsed;
+    private Long metricsDiskUsedPercent;
+    private Long metricsDiskFree;
+    private String metricsDiskCollectTime;
     private String NodeIp;
+
+    public Long getMetricsDiskFree() {
+        return metricsDiskFree;
+    }
+
+    public void setMetricsDiskFree(Long metricsDiskFree) {
+        this.metricsDiskFree = metricsDiskFree;
+    }
 
     public String getMetricsDiskSCN() {
         return metricsDiskSCN;
@@ -27,35 +39,35 @@ public class NodeMetricsDisk {
         this.metricsDiskFstype = metricsDiskFstype;
     }
 
-    public Integer getMetricsDiskTotal() {
+    public Long getMetricsDiskTotal() {
         return metricsDiskTotal;
     }
 
-    public void setMetricsDiskTotal(Integer metricsDiskTotal) {
+    public void setMetricsDiskTotal(Long metricsDiskTotal) {
         this.metricsDiskTotal = metricsDiskTotal;
     }
 
-    public Integer getMetricsDiskUsed() {
+    public Long getMetricsDiskUsed() {
         return metricsDiskUsed;
     }
 
-    public void setMetricsDiskUsed(Integer metricsDiskUsed) {
+    public void setMetricsDiskUsed(Long metricsDiskUsed) {
         this.metricsDiskUsed = metricsDiskUsed;
     }
 
-    public Integer getMetricsDiskUsedPercent() {
+    public Long getMetricsDiskUsedPercent() {
         return metricsDiskUsedPercent;
     }
 
-    public void setMetricsDiskUsedPercent(Integer metricsDiskUsedPercent) {
+    public void setMetricsDiskUsedPercent(Long metricsDiskUsedPercent) {
         this.metricsDiskUsedPercent = metricsDiskUsedPercent;
     }
 
-    public Date getMetricsDiskCollectTime() {
+    public String getMetricsDiskCollectTime() {
         return metricsDiskCollectTime;
     }
 
-    public void setMetricsDiskCollectTime(Date metricsDiskCollectTime) {
+    public void setMetricsDiskCollectTime(String metricsDiskCollectTime) {
         this.metricsDiskCollectTime = metricsDiskCollectTime;
     }
 

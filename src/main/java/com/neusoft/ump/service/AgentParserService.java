@@ -1,8 +1,8 @@
 package com.neusoft.ump.service;
 
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.JsonNode;
 
 public interface AgentParserService {
     void setParser(AgentParser parser);
-    void parser(ObjectNode objectNode);
+    void parser(JsonNode jsonNode);
 }

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 
-@Component("nodeInfo")
+@Repository
 public class NodeInfo {
     private String nodeHostname;
     private String nodeArch;
@@ -13,10 +13,10 @@ public class NodeInfo {
     private String nodeName;
     private String nodeIp;
     private String nodeSCN;
-    private String nodeCpuNumber;
-    private String nodeMemorySize;
-    private String nodeDiskSize;
-    private Date nodeRegisteredTime;
+    private Integer nodeCpuNumber;
+    private Long nodeMemorySize;
+    private Long nodeDiskSize;
+    private String nodeRegisteredTime;
 
     public String getNodeHostname() {
         return nodeHostname;
@@ -66,35 +66,35 @@ public class NodeInfo {
         this.nodeSCN = nodeSCN;
     }
 
-    public String getNodeCpuNumber() {
+    public Integer getNodeCpuNumber() {
         return nodeCpuNumber;
     }
 
-    public void setNodeCpuNumber(String nodeCpuNumber) {
+    public void setNodeCpuNumber(Integer nodeCpuNumber) {
         this.nodeCpuNumber = nodeCpuNumber;
     }
 
-    public String getNodeMemorySize() {
+    public Long getNodeMemorySize() {
         return nodeMemorySize;
     }
 
-    public void setNodeMemorySize(String nodeMemorySize) {
+    public void setNodeMemorySize(Long nodeMemorySize) {
         this.nodeMemorySize = nodeMemorySize;
     }
 
-    public String getNodeDiskSize() {
+    public Long getNodeDiskSize() {
         return nodeDiskSize;
     }
 
-    public void setNodeDiskSize(String nodeDiskSize) {
+    public void setNodeDiskSize(Long nodeDiskSize) {
         this.nodeDiskSize = nodeDiskSize;
     }
 
-    public Date getNodeRegisteredTime() {
+    public String getNodeRegisteredTime() {
         return nodeRegisteredTime;
     }
 
-    public void setNodeRegisteredTime(Date nodeRegisteredTime) {
+    public void setNodeRegisteredTime(String nodeRegisteredTime) {
         this.nodeRegisteredTime = nodeRegisteredTime;
     }
 

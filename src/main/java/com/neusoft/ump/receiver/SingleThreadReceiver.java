@@ -1,6 +1,8 @@
 package com.neusoft.ump.receiver;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.neusoft.ump.receiver.queue.UmpQueue;
 import com.neusoft.ump.service.AgentParser;
@@ -9,9 +11,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component("singleThreadReceiver")
+@Scope("singleton")
 public class SingleThreadReceiver extends Receiver{
     private final Log log = LogFactory.getLog(getClass());
 
@@ -24,10 +28,20 @@ public class SingleThreadReceiver extends Receiver{
     @Override
     public void handler(UmpQueue<ObjectNode> queue) {
         agentSerice.setParser(parser);
+        ObjectMapper objectMapper = new ObjectMapper();
         while (true){
-            ObjectNode agentNode = queue.get();
-            agentSerice.parser(agentNode);
-            log.debug("Queue length is " + queue.size());
+            ObjectNode objectNode = queue.get();
+            JsonNode agentNode = null;
+            try {
+                agentNode = (JsonNode)objectMapper.readTree(objectNode.toString());
+                log.debug("agent json content is " + agentNode.toString());
+                log.debug("Queue length is " + queue.size());
+
+                agentSerice.parser(agentNode);
+                objectMapper.clearProblemHandlers();
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

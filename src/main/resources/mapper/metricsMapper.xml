@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.ump.dao.agent.MetricsDAO">
+    <insert id="addMetricsCPU" parameterType="com.neusoft.ump.pojo.agent.NodeMetricsCpu">
+        INSERT INTO ump.ump_node_metrics_cpu
+        (metrics_current_scn,
+         metrics_cpu_user,
+         metrics_cpu_system,
+         metrics_cpu_idle,
+         metrics_cpu_nice,
+         metrics_cpu_iowait,
+         metrics_cpu_collect_time,
+         ump_node_ip)
+        VALUES
+        (#{metricsCpuSCN},
+         #{metricsCpuUser},
+         #{metricsCpuSystem},
+         #{metricsCpuIdle},
+         #{metricsCpuNice},
+         #{metricsCpuIowait},
+         #{metricsCpuCollectTime},
+         #{NodeIp});
+    </insert>
+    <insert id="addMetricsDisk" parameterType="com.neusoft.ump.pojo.agent.NodeMetricsDisk">
+        INSERT INTO ump.ump_node_metrics_disk
+        (metrics_disk_scn,
+         metrics_disk_fstype,
+         metrics_disk_total,
+         metrics_disk_used,
+         metrics_disk_free,
+         metrics_disk_used_percent,
+         metrics_disk_collect_time,
+         ump_node_ip)
+        VALUES
+        (#{metricsDiskSCN},
+         #{metricsDiskFstype},
+         #{metricsDiskTotal},
+         #{metricsDiskUsed},
+         #{metricsDiskFree},
+         #{metricsDiskUsedPercent},
+         #{metricsDiskCollectTime},
+         #{NodeIp});
+    </insert>
+    <insert id="addMetricsMemory" parameterType="com.neusoft.ump.pojo.agent.NodeMetricsMemory">
+        INSERT INTO ump.ump_node_metrics_memory
+        (metrics_memory_scn,
+         metrics_memory_available,
+         metrics_memory_used,
+         metrics_memory_used_percent,
+         metrics_memory_free,
+         metrics_memory_swapTotal,
+         metrics_memory_swapFree,
+         ump_node_ip,
+         metrics_memory_collect_time)
+        VALUES
+        (#{metricsMemorySCN},
+         #{metricsMemoryAvailable},
+         #{metricsMemoryUsed},
+         #{metricsMemoryUsedPercent},
+         #{metricsMemoryFree},
+         #{metricsMemorySwapTotal},
+         #{metricsMemorySwapFree},
+         #{NodeIp},
+         #{metricsMemoryCollectTime});
+    </insert>
+</mapper>

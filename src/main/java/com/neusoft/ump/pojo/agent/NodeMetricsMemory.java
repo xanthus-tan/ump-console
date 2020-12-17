@@ -1,17 +1,20 @@
 package com.neusoft.ump.pojo.agent;
 
+import org.springframework.stereotype.Repository;
+
 import java.util.Date;
 
+@Repository("nodeMetricsMemory")
 public class NodeMetricsMemory {
-    private String  metricsMemorySCN;
-    private Integer metricsMemoryAvailable;
-    private Integer metricsMemoryUsed;
-    private Integer metricsMemoryUsedPercent;
-    private Integer metricsMemoryFree;
-    private Integer metricsMemorySwapTotal;
-    private Integer metricsMemorySwapFree;
-    private Date    metricsMemoryCollectTime;
-    private String  NodeIp;
+    private String metricsMemorySCN;
+    private Long metricsMemoryAvailable;
+    private Long metricsMemoryUsed;
+    private Long metricsMemoryUsedPercent;
+    private Long metricsMemoryFree;
+    private Long metricsMemorySwapTotal;
+    private Long metricsMemorySwapFree;
+    private String metricsMemoryCollectTime;
+    private String NodeIp;
 
     public String getMetricsMemorySCN() {
         return metricsMemorySCN;
@@ -21,59 +24,59 @@ public class NodeMetricsMemory {
         this.metricsMemorySCN = metricsMemorySCN;
     }
 
-    public Integer getMetricsMemoryAvailable() {
+    public Long getMetricsMemoryAvailable() {
         return metricsMemoryAvailable;
     }
 
-    public void setMetricsMemoryAvailable(Integer metricsMemoryAvailable) {
+    public void setMetricsMemoryAvailable(Long metricsMemoryAvailable) {
         this.metricsMemoryAvailable = metricsMemoryAvailable;
     }
 
-    public Integer getMetricsMemoryUsed() {
+    public Long getMetricsMemoryUsed() {
         return metricsMemoryUsed;
     }
 
-    public void setMetricsMemoryUsed(Integer metricsMemoryUsed) {
+    public void setMetricsMemoryUsed(Long metricsMemoryUsed) {
         this.metricsMemoryUsed = metricsMemoryUsed;
     }
 
-    public Integer getMetricsMemoryUsedPercent() {
+    public Long getMetricsMemoryUsedPercent() {
         return metricsMemoryUsedPercent;
     }
 
-    public void setMetricsMemoryUsedPercent(Integer metricsMemoryUsedPercent) {
+    public void setMetricsMemoryUsedPercent(Long metricsMemoryUsedPercent) {
         this.metricsMemoryUsedPercent = metricsMemoryUsedPercent;
     }
 
-    public Integer getMetricsMemoryFree() {
+    public Long getMetricsMemoryFree() {
         return metricsMemoryFree;
     }
 
-    public void setMetricsMemoryFree(Integer metricsMemoryFree) {
+    public void setMetricsMemoryFree(Long metricsMemoryFree) {
         this.metricsMemoryFree = metricsMemoryFree;
     }
 
-    public Integer getMetricsMemorySwapTotal() {
+    public Long getMetricsMemorySwapTotal() {
         return metricsMemorySwapTotal;
     }
 
-    public void setMetricsMemorySwapTotal(Integer metricsMemorySwapTotal) {
+    public void setMetricsMemorySwapTotal(Long metricsMemorySwapTotal) {
         this.metricsMemorySwapTotal = metricsMemorySwapTotal;
     }
 
-    public Integer getMetricsMemorySwapFree() {
+    public Long getMetricsMemorySwapFree() {
         return metricsMemorySwapFree;
     }
 
-    public void setMetricsMemorySwapFree(Integer metricsMemorySwapFree) {
+    public void setMetricsMemorySwapFree(Long metricsMemorySwapFree) {
         this.metricsMemorySwapFree = metricsMemorySwapFree;
     }
 
-    public Date getMetricsMemoryCollectTime() {
+    public String getMetricsMemoryCollectTime() {
         return metricsMemoryCollectTime;
     }
 
-    public void setMetricsMemoryCollectTime(Date metricsMemoryCollectTime) {
+    public void setMetricsMemoryCollectTime(String metricsMemoryCollectTime) {
         this.metricsMemoryCollectTime = metricsMemoryCollectTime;
     }
 

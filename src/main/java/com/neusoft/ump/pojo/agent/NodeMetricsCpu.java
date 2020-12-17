@@ -1,15 +1,18 @@
 package com.neusoft.ump.pojo.agent;
 
+import org.springframework.stereotype.Repository;
+
 import java.util.Date;
 
+@Repository("nodeMetricsCpu")
 public class NodeMetricsCpu {
     private String metricsCpuSCN;
-    private Integer metricsCpuUser;
-    private Integer metricsCpuSystem;
-    private Integer metricsCpuIdle;
-    private Integer metricsCpuNice;
-    private Integer metricsCpuIowait;
-    private Date metricsCpuCollectTime;
+    private Long metricsCpuUser;
+    private Long metricsCpuSystem;
+    private Long metricsCpuIdle;
+    private Long metricsCpuNice;
+    private Long metricsCpuIowait;
+    private String metricsCpuCollectTime;
     private String NodeIp;
 
     public String getMetricsCpuSCN() {
@@ -20,51 +23,51 @@ public class NodeMetricsCpu {
         this.metricsCpuSCN = metricsCpuSCN;
     }
 
-    public Integer getMetricsCpuUser() {
+    public Long getMetricsCpuUser() {
         return metricsCpuUser;
     }
 
-    public void setMetricsCpuUser(Integer metricsCpuUser) {
+    public void setMetricsCpuUser(Long metricsCpuUser) {
         this.metricsCpuUser = metricsCpuUser;
     }
 
-    public Integer getMetricsCpuSystem() {
+    public Long getMetricsCpuSystem() {
         return metricsCpuSystem;
     }
 
-    public void setMetricsCpuSystem(Integer metricsCpuSystem) {
+    public void setMetricsCpuSystem(Long metricsCpuSystem) {
         this.metricsCpuSystem = metricsCpuSystem;
     }
 
-    public Integer getMetricsCpuIdle() {
+    public Long getMetricsCpuIdle() {
         return metricsCpuIdle;
     }
 
-    public void setMetricsCpuIdle(Integer metricsCpuIdle) {
+    public void setMetricsCpuIdle(Long metricsCpuIdle) {
         this.metricsCpuIdle = metricsCpuIdle;
     }
 
-    public Integer getMetricsCpuNice() {
+    public Long getMetricsCpuNice() {
         return metricsCpuNice;
     }
 
-    public void setMetricsCpuNice(Integer metricsCpuNice) {
+    public void setMetricsCpuNice(Long metricsCpuNice) {
         this.metricsCpuNice = metricsCpuNice;
     }
 
-    public Integer getMetricsCpuIowait() {
+    public Long getMetricsCpuIowait() {
         return metricsCpuIowait;
     }
 
-    public void setMetricsCpuIowait(Integer metricsCpuIowait) {
+    public void setMetricsCpuIowait(Long metricsCpuIowait) {
         this.metricsCpuIowait = metricsCpuIowait;
     }
 
-    public Date getMetricsCpuCollectTime() {
+    public String getMetricsCpuCollectTime() {
         return metricsCpuCollectTime;
     }
 
-    public void setMetricsCpuCollectTime(Date metricsCpuCollectTime) {
+    public void setMetricsCpuCollectTime(String metricsCpuCollectTime) {
         this.metricsCpuCollectTime = metricsCpuCollectTime;
     }
 

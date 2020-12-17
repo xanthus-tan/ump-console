@@ -1,5 +1,6 @@
 package com.neusoft.ump.service.imp;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.neusoft.ump.service.AgentParser;
 import com.neusoft.ump.service.AgentParserService;
@@ -14,11 +15,11 @@ public class AgentParserServiceImp implements AgentParserService {
     }
 
     @Override
-    public void parser(ObjectNode objectNode) {
-        String type = objectNode.get("agent").get("header").get("type").asText();
+    public void parser(JsonNode jsonNode) {
+        String type = jsonNode.get("agent").get("header").get("type").asText();
         switch (type){
-            case "node": agentParser.parserNodeItem(objectNode); break;
-            case "memtrics": agentParser.parserMetricsItem(objectNode); break;
+            case "node": agentParser.parserNodeItem(jsonNode); break;
+            case "metrics": agentParser.parserMetricsItem(jsonNode); break;
         }
     }
 }

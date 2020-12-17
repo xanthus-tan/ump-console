@@ -37,9 +37,9 @@ public class WorkHandler implements Runnable {
             }
             String agent;
             ObjectMapper objectMapper = new ObjectMapper();
-            ObjectNode clientNode = objectMapper.createObjectNode();
-            clientNode.put("client", clientAddr);
             while ((agent = in.readLine()) != null) {
+                ObjectNode clientNode = objectMapper.createObjectNode();
+                clientNode.put("client", clientAddr);
                 JsonNode agentNode = objectMapper.readTree(agent);
                 clientNode.set("agent",agentNode);
                 String msg = objectMapper.writeValueAsString(clientNode);
