@@ -15,11 +15,13 @@ public class AgentParserServiceImp implements AgentParserService {
     }
 
     @Override
-    public void parser(JsonNode jsonNode) {
+    public String parser(JsonNode jsonNode) {
         String type = jsonNode.get("agent").get("header").get("type").asText();
         switch (type){
             case "node": agentParser.parserNodeItem(jsonNode); break;
             case "metrics": agentParser.parserMetricsItem(jsonNode); break;
+            case "probe": agentParser.parserProbe(jsonNode); break;
         }
+        return "success";
     }
 }

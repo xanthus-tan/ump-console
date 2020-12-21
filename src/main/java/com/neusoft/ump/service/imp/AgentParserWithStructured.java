@@ -84,6 +84,11 @@ public class AgentParserWithStructured extends AgentParser {
         }
     }
 
+    @Override
+    public String parserProbe(JsonNode jsonNode) {
+        return null;
+    }
+
     private void parserMetricsCpu(JsonNode jsonNode) {
         cpu.setNodeIp(getClientAddr(jsonNode));
         JsonNode metricsCpuNodeArray = getMetrics(jsonNode);

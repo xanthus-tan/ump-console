@@ -27,6 +27,7 @@ public class SingleThreadReceiver extends Receiver{
     private AgentParser parser;
     @Override
     public void handler(UmpQueue<ObjectNode> queue) {
+
         agentSerice.setParser(parser);
         ObjectMapper objectMapper = new ObjectMapper();
         while (true){
@@ -36,12 +37,16 @@ public class SingleThreadReceiver extends Receiver{
                 agentNode = (JsonNode)objectMapper.readTree(objectNode.toString());
                 log.debug("agent json content is " + agentNode.toString());
                 log.debug("Queue length is " + queue.size());
-
                 agentSerice.parser(agentNode);
                 objectMapper.clearProblemHandlers();
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public String ProbeHandler(ObjectNode objectNode) {
+        return null;
     }
 }

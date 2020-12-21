@@ -9,6 +9,9 @@
         values(#{nodeHostname},#{nodeArch},#{nodeOS},#{nodeName},#{nodeIp},#{nodeSCN},#{nodeCpuNumber},
         #{nodeMemorySize},#{nodeDiskSize},#{nodeRegisteredTime})
     </insert>
+    <select id="isExistNode" parameterType="String" resultType="String">
+        select count(*) from ump.ump_node where ump_node_ip = #{_parameter}
+    </select>
 </mapper>
 
 
