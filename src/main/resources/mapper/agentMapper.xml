@@ -9,9 +9,15 @@
         values(#{nodeHostname},#{nodeArch},#{nodeOS},#{nodeName},#{nodeIp},#{nodeSCN},#{nodeCpuNumber},
         #{nodeMemorySize},#{nodeDiskSize},#{nodeRegisteredTime})
     </insert>
-    <select id="isExistNode" parameterType="String" resultType="String">
+    <select id="isExistNode" parameterType="String" resultType="Integer">
         select count(*) from ump.ump_node where ump_node_ip = #{_parameter}
     </select>
+    <delete id="deleteNode" parameterType="String">
+        delete from ump.ump_node where ump_node_ip = #{_parameter}
+    </delete>
+    <update id="updateSCN">
+        update ump.ump_node set ump_node_current_scn = #{arg0} where ump_node_ip = #{arg1}
+    </update>
 </mapper>
 
 

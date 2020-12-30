@@ -6,5 +6,7 @@ import org.springframework.stereotype.Repository;
 @Repository("nodeDAO")
 public interface NodeDAO {
      void addNode(NodeInfo node);
-     String isExistNode(String ip);
+     Integer isExistNode(String ip);
+     void deleteNode(String ip);
+     void updateSCN(String scn, String ip);
 }

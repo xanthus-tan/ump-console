@@ -29,6 +29,10 @@ public class ConsoleSocketServer {
     @Qualifier("singleThreadReceiver")
     private Receiver receiver;
 
+    @Autowired
+    @Qualifier("workHandler")
+    WorkHandler work;
+
     public ConsoleSocketServer() {
         UmpQueueFactory factory = new UmpBlockingQueueFactory();
         this.queue = factory.createInstance("default");
@@ -44,7 +48,8 @@ public class ConsoleSocketServer {
                 log.info("Waiting for ump-agent ........");
                 while (true) {
                     Socket clientSocket = serverSocket.accept();
-                    Runnable work = new WorkHandler(clientSocket, queue);
+                    work.setSocket(clientSocket);
+                    work.setQueue(queue);
                     executor.execute(work);
                 }
             } catch (IOException e) {

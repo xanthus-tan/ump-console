@@ -9,6 +9,7 @@ import com.neusoft.ump.pojo.agent.NodeMetricsDisk;
 import com.neusoft.ump.pojo.agent.NodeMetricsMemory;
 import com.neusoft.ump.service.AgentParser;
 import com.neusoft.ump.utils.time.CurrentDate;
+import com.neusoft.ump.utils.time.UMPCode;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.binding.BindingException;
@@ -47,7 +48,7 @@ public class AgentParserWithStructured extends AgentParser {
 
 
     @Override
-    public void parserNodeItem(JsonNode jsonNode) {
+    public String nodeParser(JsonNode jsonNode) {
         try {
             JsonNode agentNode = jsonNode.get("agent");
             node.setNodeArch(agentNode.get("computer").get("arch").asText());
@@ -65,7 +66,7 @@ public class AgentParserWithStructured extends AgentParser {
         } catch (BindingException e) {
             log.error(e.getMessage());
         }
-
+        return UMPCode.REGISTERSUCCESSCODE;
     }
 
     @Override
@@ -85,25 +86,28 @@ public class AgentParserWithStructured extends AgentParser {
     }
 
     @Override
-    public String parserProbe(JsonNode jsonNode) {
+    public String probeParser(JsonNode jsonNode) {
         return null;
     }
 
     private void parserMetricsCpu(JsonNode jsonNode) {
+        String scn = getPkgScn(jsonNode);
         cpu.setNodeIp(getClientAddr(jsonNode));
-        JsonNode metricsCpuNodeArray = getMetrics(jsonNode);
+        JsonNode metricsCpuNodeArray = getMetrics(jsonNode).get("cpuStats");
         metricsCpuNodeArray.forEach(metricsCpu -> {
             cpu.setMetricsCpuIdle(metricsCpu.get("idle").asLong());
             cpu.setMetricsCpuIowait(metricsCpu.get("iowait").asLong());
             cpu.setMetricsCpuNice(metricsCpu.get("nice").asLong());
             cpu.setMetricsCpuSystem(metricsCpu.get("system").asLong());
             cpu.setMetricsCpuUser(metricsCpu.get("user").asLong());
+            cpu.setMetricsCpuSCN(scn);
             cpu.setMetricsCpuCollectTime(CurrentDate.getCurrentDateFormat());
             addMetricsCPU(cpu);
         });
     }
 
     private void parserMetricsDisk(JsonNode jsonNode) {
+        String scn = getPkgScn(jsonNode);
         disk.setNodeIp(getClientAddr(jsonNode));
         JsonNode metricsDisk = getMetrics(jsonNode);
         disk.setMetricsDiskTotal(metricsDisk.get("total").asLong());
@@ -111,12 +115,14 @@ public class AgentParserWithStructured extends AgentParser {
         disk.setMetricsDiskUsedPercent(metricsDisk.get("usedPercent").asLong());
         disk.setMetricsDiskFstype(metricsDisk.get("fstype").asText());
         disk.setMetricsDiskFree(metricsDisk.get("free").asLong());
+        disk.setMetricsDiskSCN(scn);
         disk.setMetricsDiskCollectTime(CurrentDate.getCurrentDateFormat());
         addMetricsDisk(disk);
     }
 
     private void parserMetricsMemory(JsonNode jsonNode) {
         JsonNode metricsMemory = getMetrics(jsonNode);
+        String scn = getPkgScn(jsonNode);
         memory.setNodeIp(getClientAddr(jsonNode));
         memory.setMetricsMemoryFree(metricsMemory.get("free").asLong());
         memory.setMetricsMemoryAvailable(metricsMemory.get("available").asLong());
@@ -124,6 +130,7 @@ public class AgentParserWithStructured extends AgentParser {
         memory.setMetricsMemoryUsedPercent(metricsMemory.get("usedPercent").asLong());
         memory.setMetricsMemorySwapTotal(metricsMemory.get("swapTotal").asLong());
         memory.setMetricsMemorySwapFree(metricsMemory.get("swapFree").asLong());
+        memory.setMetricsMemorySCN(scn);
         memory.setMetricsMemoryCollectTime(CurrentDate.getCurrentDateFormat());
         addMetricsMemory(memory);
     }
@@ -148,8 +155,13 @@ public class AgentParserWithStructured extends AgentParser {
         metricsDAO.addMetricsMemory(memory);
     }
 
+    //获得agent的ip地址
     private String getClientAddr(JsonNode jsonNode) {
-        return jsonNode.get("client").asText();
+        return jsonNode.get("ip").asText();
+    }
+
+    private String getPkgScn(JsonNode jsonNode){
+        return jsonNode.get("agent").get("header").get("scn").asText();
     }
 
     private JsonNode getMetrics(JsonNode jsonNode) {

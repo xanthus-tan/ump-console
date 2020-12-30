@@ -7,6 +7,7 @@ import com.neusoft.ump.utils.time.UMPCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service("agentProbeParser")
 public class AgentProbeParser extends AgentParser {
@@ -15,8 +16,8 @@ public class AgentProbeParser extends AgentParser {
     private NodeDAO nodeDAO;
 
     @Override
-    public void parserNodeItem(JsonNode jsonNode) {
-
+    public String nodeParser(JsonNode jsonNode) {
+        return null;
     }
 
     @Override
@@ -25,20 +26,38 @@ public class AgentProbeParser extends AgentParser {
     }
 
     @Override
-    public String parserProbe(JsonNode jsonNode) {
-        System.out.println(jsonNode.toString());
-        String code = jsonNode.get("agent").get("header").get("code").asText();
-        String nodeIP = jsonNode.get("client").asText();
+    public String probeParser(JsonNode jsonNode) {
+        JsonNode header = jsonNode.get("agent").get("header");
+        String code = header.get("code").asText();
+        String scn = header.get("scn").asText();
+        String nodeIP = jsonNode.get("ip").asText();
+        String resultCode;
         switch (code) {
             case UMPCode.INITCODE:
-                System.out.println(nodeDAO);
-                String result = nodeDAO.isExistNode(nodeIP);
-                System.out.println(result);
+                Integer result = nodeDAO.isExistNode(nodeIP);
+                if(result == 1){
+                    resultCode = UMPCode.CONSOLEACTIVE;
+                }else if(result == 0){
+                    resultCode = UMPCode.REGISTEREQUESTCODE;
+                }else{
+                    nodeDAO.deleteNode(nodeIP);
+
+                    resultCode = UMPCode.REGISTEREQUESTCODE;
+                }
                 break;
             case UMPCode.HEARTBEATCODE:
-                System.out.println("更新scn");
+                updateSCN(scn,nodeIP);
+                resultCode = UMPCode.CONSOLEACTIVE;
                 break;
+            default:
+                resultCode = UMPCode.CONSOLEACTIVE;
         }
-        return null;
+
+        return resultCode;
+    }
+
+    @Transactional
+    private void updateSCN(String scn, String nodeIP){
+        nodeDAO.updateSCN(scn,nodeIP);
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 @Service("agentParserServiceImp")
 public class AgentParserServiceImp implements AgentParserService {
     private AgentParser agentParser;
+
     @Override
     public void setParser(AgentParser agentParser) {
         this.agentParser = agentParser;
@@ -17,10 +18,14 @@ public class AgentParserServiceImp implements AgentParserService {
     @Override
     public String parser(JsonNode jsonNode) {
         String type = jsonNode.get("agent").get("header").get("type").asText();
-        switch (type){
-            case "node": agentParser.parserNodeItem(jsonNode); break;
-            case "metrics": agentParser.parserMetricsItem(jsonNode); break;
-            case "probe": agentParser.parserProbe(jsonNode); break;
+        switch (type) {
+            case "node":
+                return agentParser.nodeParser(jsonNode);
+            case "metrics":
+                agentParser.parserMetricsItem(jsonNode);
+                break;
+            case "probe":
+                return agentParser.probeParser(jsonNode);
         }
         return "success";
     }

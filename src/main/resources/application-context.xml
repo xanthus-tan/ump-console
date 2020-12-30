@@ -12,6 +12,7 @@
        http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
+    <context:annotation-config/>
     <context:component-scan base-package="com.neusoft.ump">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
@@ -39,22 +40,22 @@
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"></property>
     </bean>
-     <!-- 通知 -->
-     <tx:advice id="txAdvice" transaction-manager="transactionManager">
-         <tx:attributes>
-             <!-- 传播行为 -->
-             <tx:method name="save*" propagation="REQUIRED"/>
-             <tx:method name="delete*" propagation="REQUIRED"/>
-             <tx:method name="insert*" propagation="REQUIRED"/>
-             <tx:method name="update*" propagation="REQUIRED"/>
-             <tx:method name="find*" propagation="SUPPORTS" read-only="true"/>
-             <tx:method name="get*" propagation="SUPPORTS" read-only="true"/>
-             <tx:method name="select*" propagation="SUPPORTS" read-only="true"/>
-         </tx:attributes>
-     </tx:advice>
-     <!-- aop -->
-     <aop:config>
-         <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.neusoft.ump.service.imp.*.*(..))"/>
-     </aop:config>
+    <!-- 通知 -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <!-- 传播行为 -->
+            <tx:method name="save*" propagation="REQUIRED"/>
+            <tx:method name="delete*" propagation="REQUIRED"/>
+            <tx:method name="insert*" propagation="REQUIRED"/>
+            <tx:method name="update*" propagation="REQUIRED"/>
+            <tx:method name="find*" propagation="SUPPORTS" read-only="true"/>
+            <tx:method name="get*" propagation="SUPPORTS" read-only="true"/>
+            <tx:method name="select*" propagation="SUPPORTS" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+    <!-- aop -->
+    <aop:config>
+        <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.neusoft.ump.service.imp.*.*(..))"/>
+    </aop:config>
     <tx:annotation-driven/>
 </beans>

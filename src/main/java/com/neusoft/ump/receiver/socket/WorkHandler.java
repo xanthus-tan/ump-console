@@ -3,7 +3,6 @@ package com.neusoft.ump.receiver.socket;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.neusoft.ump.receiver.ProbeReceiverSync;
 import com.neusoft.ump.receiver.Receiver;
 import com.neusoft.ump.receiver.queue.UmpQueue;
 import com.neusoft.ump.utils.time.UMPCode;
@@ -22,17 +21,32 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
 
+@Component("workHandler")
 public class WorkHandler implements Runnable {
     private final Log log = LogFactory.getLog(getClass());
-    private final Socket client;
+    private Socket client;
     private UmpQueue queue;
 
-    @Qualifier("probeReceiverSync")
     @Autowired
-    private Receiver receiver;
+    @Qualifier("probeReceiverSync")
+    private Receiver probeReceiver;
 
+    @Autowired
+    @Qualifier("nodeReceiverSync")
+    private Receiver nodeReceiver;
     public WorkHandler(Socket client, UmpQueue queue) {
         this.client = client;
+        this.queue = queue;
+    }
+
+    public WorkHandler() {
+    }
+
+    public void setSocket(Socket client) {
+        this.client = client;
+    }
+
+    public void setQueue(UmpQueue queue) {
         this.queue = queue;
     }
 
@@ -54,26 +68,39 @@ public class WorkHandler implements Runnable {
             ObjectMapper objectMapper = new ObjectMapper();
             while ((agent = in.readLine()) != null) {
                 ObjectNode clientNode = objectMapper.createObjectNode();
-                clientNode.put("client", clientAddr);
+                clientNode.put("ip", clientAddr);
                 JsonNode agentNode = objectMapper.readTree(agent);
-                clientNode.set("agent",agentNode);
+                clientNode.set("agent", agentNode);
                 String type = clientNode.get("agent").get("header").get("type").asText();
-                if (type.equals(UMPCode.PROBE)){
-                  String code = probeHanlder(clientNode);
-                  pw.println(code);
-                  continue;
+                if (type.equals(UMPCode.PROBE)) {
+                    String code = probeHanlder(clientNode);
+                    pw.println(code);
+                    continue;
+                }else if(type.equals(UMPCode.NODE)){
+                    String code = clientNode.get("agent").get("header").get("code").asText();
+                    if(code.equals(UMPCode.REGISTEREQUESTCODE)){
+                        String resultCode = nodeHanlder(clientNode);
+                        pw.println(resultCode);
+                        continue;
+                    }
                 }
                 log.debug("Received message from " + Thread.currentThread().getName() + " ：" + clientNode.toString());
                 queue.add(clientNode);
             }
             client.close();
         } catch (IOException e) {
-            log.error(e);
+            log.error(e.getMessage());
         }
     }
-    private String probeHanlder(ObjectNode probe){
-        Receiver receiver = new ProbeReceiverSync();
-        receiver.ProbeHandler(probe);
-        return UMPCode.REGISTERSUCCESSCODE;
+
+    private String probeHanlder(ObjectNode probe) {
+        String resultCode = probeReceiver.handler(probe);
+        return resultCode;
     }
+
+    private String nodeHanlder(ObjectNode node){
+        String resultCode = nodeReceiver.handler(node);
+        return resultCode;
+    }
+
 }
