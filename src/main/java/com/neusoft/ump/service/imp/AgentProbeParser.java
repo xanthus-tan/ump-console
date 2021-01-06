@@ -30,6 +30,7 @@ public class AgentProbeParser extends AgentParser {
         JsonNode header = jsonNode.get("agent").get("header");
         String code = header.get("code").asText();
         String scn = header.get("scn").asText();
+        String node_current_time = jsonNode.get("agent").get("body").get("time").asText();
         String nodeIP = jsonNode.get("ip").asText();
         String resultCode;
         switch (code) {
@@ -46,7 +47,7 @@ public class AgentProbeParser extends AgentParser {
                 }
                 break;
             case UMPCode.HEARTBEATCODE:
-                updateSCN(scn,nodeIP);
+                updateSCN(scn,node_current_time,nodeIP);
                 resultCode = UMPCode.CONSOLEACTIVE;
                 break;
             default:
@@ -57,7 +58,7 @@ public class AgentProbeParser extends AgentParser {
     }
 
     @Transactional
-    private void updateSCN(String scn, String nodeIP){
-        nodeDAO.updateSCN(scn,nodeIP);
+    private void updateSCN(String scn, String node_time, String nodeIP){
+        nodeDAO.updateSCN(scn, node_time, nodeIP);
     }
 }

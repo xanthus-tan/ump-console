@@ -12,11 +12,18 @@
     <select id="isExistNode" parameterType="String" resultType="Integer">
         select count(*) from ump.ump_node where ump_node_ip = #{_parameter}
     </select>
+    <resultMap id="activeNodesResult" type="HashMap">
+        <result property="nodeId" column="ump_node_id" javaType="String"/>
+        <result property="nodeTime" column="ump_node_time" javaType="String"/>
+    </resultMap>
+    <select id="getActiveNodes" resultMap="activeNodesResult">
+        select ump_node_id, ump_node_time from ump.ump_node where ump_node_is_active = 1
+    </select>
     <delete id="deleteNode" parameterType="String">
         delete from ump.ump_node where ump_node_ip = #{_parameter}
     </delete>
     <update id="updateSCN">
-        update ump.ump_node set ump_node_current_scn = #{arg0} where ump_node_ip = #{arg1}
+        update ump.ump_node set ump_node_current_scn = #{arg0}, ump_node_time = #{arg1}, ump_node_is_active = 1 where ump_node_ip = #{arg2}
     </update>
 </mapper>
 

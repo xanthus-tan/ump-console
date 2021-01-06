@@ -1,6 +1,6 @@
-package com.neusoft.ump.receiver;
+package com.neusoft.ump.console.receiver;
 
-import com.neusoft.ump.receiver.queue.UmpQueue;
+import com.neusoft.ump.console.queue.UmpQueue;
 
 public class UmpExchange<T> {
     private UmpQueue queue;

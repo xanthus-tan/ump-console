@@ -1,10 +1,10 @@
-package com.neusoft.ump.receiver.socket;
+package com.neusoft.ump.console.socket;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.neusoft.ump.receiver.Receiver;
-import com.neusoft.ump.receiver.queue.UmpQueue;
+import com.neusoft.ump.console.receiver.Receiver;
+import com.neusoft.ump.console.queue.UmpQueue;
 import com.neusoft.ump.utils.time.UMPCode;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -72,6 +72,7 @@ public class WorkHandler implements Runnable {
                 JsonNode agentNode = objectMapper.readTree(agent);
                 clientNode.set("agent", agentNode);
                 String type = clientNode.get("agent").get("header").get("type").asText();
+                log.info(clientNode.toString());
                 if (type.equals(UMPCode.PROBE)) {
                     String code = probeHanlder(clientNode);
                     pw.println(code);

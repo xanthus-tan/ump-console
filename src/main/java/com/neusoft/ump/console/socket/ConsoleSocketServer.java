@@ -1,16 +1,15 @@
-package com.neusoft.ump.receiver.socket;
+package com.neusoft.ump.console.socket;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.neusoft.ump.receiver.Receiver;
-import com.neusoft.ump.receiver.UmpExchange;
-import com.neusoft.ump.receiver.queue.UmpBlockingQueueFactory;
-import com.neusoft.ump.receiver.queue.UmpQueue;
-import com.neusoft.ump.receiver.queue.UmpQueueFactory;
+import com.neusoft.ump.console.receiver.Receiver;
+import com.neusoft.ump.console.receiver.UmpExchange;
+import com.neusoft.ump.console.queue.UmpBlockingQueueFactory;
+import com.neusoft.ump.console.queue.UmpQueue;
+import com.neusoft.ump.console.queue.UmpQueueFactory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -58,6 +57,7 @@ public class ConsoleSocketServer {
         };
 
         Runnable receverThread = () -> {
+            log.info("Receiver has been started ........");
             UmpExchange<ObjectNode> exchange = new UmpExchange(queue);
             exchange.setReceiver(receiver);
             exchange.exec();

@@ -1,4 +1,4 @@
-package com.neusoft.ump.receiver.queue;
+package com.neusoft.ump.console.queue;
 
 public interface UmpQueue<T>  {
     // 队列长度

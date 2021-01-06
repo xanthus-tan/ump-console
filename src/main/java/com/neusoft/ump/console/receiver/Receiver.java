@@ -1,7 +1,7 @@
-package com.neusoft.ump.receiver;
+package com.neusoft.ump.console.receiver;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.neusoft.ump.receiver.queue.UmpQueue;
+import com.neusoft.ump.console.queue.UmpQueue;
 import org.springframework.stereotype.Component;
 
 @Component

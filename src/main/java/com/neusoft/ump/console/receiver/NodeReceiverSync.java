@@ -1,41 +1,41 @@
-package com.neusoft.ump.receiver;
+package com.neusoft.ump.console.receiver;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.neusoft.ump.receiver.queue.UmpQueue;
+import com.neusoft.ump.console.queue.UmpQueue;
 import com.neusoft.ump.service.AgentParser;
 import com.neusoft.ump.service.AgentParserService;
-import com.neusoft.ump.service.imp.AgentParserServiceImp;
-import com.neusoft.ump.service.imp.AgentProbeParser;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-@Component("probeReceiverSync")
-public class ProbeReceiverSync extends Receiver{
+@Component("nodeReceiverSync")
+public class NodeReceiverSync extends Receiver{
     private final Log log = LogFactory.getLog(getClass());
     @Autowired
     @Qualifier("agentParserServiceImp")
     private AgentParserService agentSerice;
     @Autowired
-    @Qualifier("agentProbeParser")
+    @Qualifier("agentParserWithStructured")
     private AgentParser parser;
 
     @Override
     public void handler(UmpQueue<ObjectNode> queue) {
+
     }
+
     @Override
     public String handler(ObjectNode objectNode) {
         agentSerice.setParser(parser);
         ObjectMapper objectMapper = new ObjectMapper();
         String resultCode = null;
         try {
-            JsonNode probe = (JsonNode)objectMapper.readTree(objectNode.toString());
-            resultCode = agentSerice.parser(probe);
+            JsonNode node = (JsonNode)objectMapper.readTree(objectNode.toString());
+            resultCode = agentSerice.parser(node);
         } catch (JsonProcessingException e) {
             log.error(e.toString());
         }

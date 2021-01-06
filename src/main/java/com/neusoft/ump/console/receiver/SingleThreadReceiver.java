@@ -1,10 +1,10 @@
-package com.neusoft.ump.receiver;
+package com.neusoft.ump.console.receiver;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.neusoft.ump.receiver.queue.UmpQueue;
+import com.neusoft.ump.console.queue.UmpQueue;
 import com.neusoft.ump.service.AgentParser;
 import com.neusoft.ump.service.AgentParserService;
 import org.apache.commons.logging.Log;

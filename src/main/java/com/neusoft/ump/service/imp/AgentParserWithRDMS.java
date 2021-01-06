@@ -8,7 +8,7 @@ import com.neusoft.ump.pojo.agent.NodeMetricsCpu;
 import com.neusoft.ump.pojo.agent.NodeMetricsDisk;
 import com.neusoft.ump.pojo.agent.NodeMetricsMemory;
 import com.neusoft.ump.service.AgentParser;
-import com.neusoft.ump.utils.time.CurrentDate;
+import com.neusoft.ump.utils.time.DateTool;
 import com.neusoft.ump.utils.time.UMPCode;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service("agentParserWithStructured")
-public class AgentParserWithStructured extends AgentParser {
+public class AgentParserWithRDMS extends AgentParser {
     private final Log log = LogFactory.getLog(getClass());
 
     @Autowired
@@ -58,7 +58,7 @@ public class AgentParserWithStructured extends AgentParser {
             node.setNodeMemorySize(agentNode.get("resource").get("memSize").asLong());
             node.setNodeDiskSize(agentNode.get("resource").get("diskSize").asLong());
             node.setNodeIp(getClientAddr(jsonNode));
-            node.setNodeRegisteredTime(CurrentDate.getCurrentDateFormat());
+            node.setNodeRegisteredTime(DateTool.getCurrentDateFormat());
             addNode(node);
         } catch (NullPointerException e) {
             log.error(e.getMessage());
@@ -101,7 +101,7 @@ public class AgentParserWithStructured extends AgentParser {
             cpu.setMetricsCpuSystem(metricsCpu.get("system").asLong());
             cpu.setMetricsCpuUser(metricsCpu.get("user").asLong());
             cpu.setMetricsCpuSCN(scn);
-            cpu.setMetricsCpuCollectTime(CurrentDate.getCurrentDateFormat());
+            cpu.setMetricsCpuCollectTime(DateTool.getCurrentDateFormat());
             addMetricsCPU(cpu);
         });
     }
@@ -116,7 +116,7 @@ public class AgentParserWithStructured extends AgentParser {
         disk.setMetricsDiskFstype(metricsDisk.get("fstype").asText());
         disk.setMetricsDiskFree(metricsDisk.get("free").asLong());
         disk.setMetricsDiskSCN(scn);
-        disk.setMetricsDiskCollectTime(CurrentDate.getCurrentDateFormat());
+        disk.setMetricsDiskCollectTime(DateTool.getCurrentDateFormat());
         addMetricsDisk(disk);
     }
 
@@ -131,7 +131,7 @@ public class AgentParserWithStructured extends AgentParser {
         memory.setMetricsMemorySwapTotal(metricsMemory.get("swapTotal").asLong());
         memory.setMetricsMemorySwapFree(metricsMemory.get("swapFree").asLong());
         memory.setMetricsMemorySCN(scn);
-        memory.setMetricsMemoryCollectTime(CurrentDate.getCurrentDateFormat());
+        memory.setMetricsMemoryCollectTime(DateTool.getCurrentDateFormat());
         addMetricsMemory(memory);
     }
 
